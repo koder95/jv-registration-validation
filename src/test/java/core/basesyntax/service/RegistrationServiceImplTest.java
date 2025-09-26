@@ -3,6 +3,7 @@ package core.basesyntax.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import core.basesyntax.db.Storage;
 import core.basesyntax.model.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -59,7 +60,7 @@ class RegistrationServiceImplTest {
         first.setAge(20);
         first.setLogin("user1234");
         first.setPassword("password1234");
-        assertEquals(first, service.register(first));
+        Storage.people.add(first);
         User expected = new User();
         expected.setAge(26);
         expected.setLogin("user1234");
