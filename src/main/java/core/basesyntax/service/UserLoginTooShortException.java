@@ -5,8 +5,8 @@ import core.basesyntax.model.User;
 public class UserLoginTooShortException extends RegistrationException {
     public UserLoginTooShortException(User user, int minLength) {
         super("User name "
-                + (user == null ? "null" : "\"" + user.getLogin() + "\"")
-                + " must contain min. "
+                + (user == null || user.getLogin() == null ? null : "\"" + user.getLogin() + "\"")
+                + " must contain at least "
                 + minLength + " characters");
     }
 }
