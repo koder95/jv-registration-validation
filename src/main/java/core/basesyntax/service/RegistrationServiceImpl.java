@@ -5,7 +5,35 @@ import core.basesyntax.dao.StorageDaoImpl;
 import core.basesyntax.model.User;
 
 public class RegistrationServiceImpl implements RegistrationService {
+    public static final int DEFAULT_LOGIN_MIN_LENGTH = 6;
+    public static final int DEFAULT_PASSWORD_MIN_LENGTH = 6;
+    public static final int DEFAULT_MIN_USER_AGE = 18;
     private final StorageDao storageDao = new StorageDaoImpl();
+    private final int loginMinLength;
+    private final int passwordMinLength;
+    private final int minUserAge;
+
+    public RegistrationServiceImpl(int loginMinLength, int passwordMinLength, int minUserAge) {
+        this.loginMinLength = loginMinLength;
+        this.passwordMinLength = passwordMinLength;
+        this.minUserAge = minUserAge;
+    }
+
+    public RegistrationServiceImpl() {
+        this(DEFAULT_LOGIN_MIN_LENGTH, DEFAULT_PASSWORD_MIN_LENGTH, DEFAULT_MIN_USER_AGE);
+    }
+
+    public int getLoginMinLength() {
+        return loginMinLength;
+    }
+
+    public int getPasswordMinLength() {
+        return passwordMinLength;
+    }
+
+    public int getMinUserAge() {
+        return minUserAge;
+    }
 
     @Override
     public User register(User user) {
@@ -15,14 +43,14 @@ public class RegistrationServiceImpl implements RegistrationService {
         if (storageDao.get(user.getLogin()) != null) {
             throw new RegisteredUserException(user);
         }
-        if (user.getLogin().length() < 6) {
-            throw new UserLoginTooShortException(user, 6);
+        if (user.getLogin().length() < loginMinLength) {
+            throw new UserLoginTooShortException(user, loginMinLength);
         }
-        if (user.getPassword().length() < 6) {
-            throw new UserPasswordTooShortException(user, 6);
+        if (user.getPassword().length() < passwordMinLength) {
+            throw new UserPasswordTooShortException(user, passwordMinLength);
         }
-        if (user.getAge() < 18) {
-            throw new TooYoungUserException(user, 18);
+        if (user.getAge() < minUserAge) {
+            throw new TooYoungUserException(user, minUserAge);
         }
         return storageDao.add(user);
     }
