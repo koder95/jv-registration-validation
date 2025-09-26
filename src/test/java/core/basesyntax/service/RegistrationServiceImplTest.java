@@ -12,13 +12,13 @@ class RegistrationServiceImplTest {
     private final RegistrationServiceImpl service = new RegistrationServiceImpl();
 
     @Test
-    void register_Null_NotOK() {
+    void register_null_notOK() {
         User actual = null;
         assertThrows(IllegalArgumentException.class, () -> service.register(actual));
     }
 
     @Test
-    void register_Correct_Ok() {
+    void register_correct_ok() {
         User expected = new User();
         expected.setAge(20);
         expected.setLogin("user12");
@@ -27,7 +27,7 @@ class RegistrationServiceImplTest {
     }
 
     @Test
-    void register_TooYoungUser_NotOk() {
+    void register_tooYoungUser_notOk() {
         User expected = new User();
         expected.setAge(16);
         expected.setLogin("user1234");
@@ -36,7 +36,7 @@ class RegistrationServiceImplTest {
     }
 
     @Test
-    void register_UserLoginTooShort_NotOk() {
+    void register_userLoginTooShort_notOk() {
         User expected = new User();
         expected.setAge(20);
         expected.setLogin("user1");
@@ -45,7 +45,7 @@ class RegistrationServiceImplTest {
     }
 
     @Test
-    void register_UserPasswordTooShort_NotOk() {
+    void register_userPasswordTooShort_notOk() {
         User expected = new User();
         expected.setAge(20);
         expected.setLogin("user1234");
@@ -54,7 +54,7 @@ class RegistrationServiceImplTest {
     }
 
     @Test
-    void register_TheSameNameUsers_NotOk() {
+    void register_theSameNameUsers_notOk() {
         User first = new User();
         first.setAge(20);
         first.setLogin("user1234");
