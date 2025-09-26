@@ -37,6 +37,24 @@ class RegistrationServiceImplTest {
     }
 
     @Test
+    void register_negativeUserAge_notOk() {
+        User expected = new User();
+        expected.setLogin("user1234");
+        expected.setPassword("password1234");
+        expected.setAge(-1);
+        assertThrows(TooYoungUserException.class, () -> service.register(expected));
+    }
+
+    @Test
+    void register_zeroUserAge_notOk() {
+        User expected = new User();
+        expected.setLogin("user1234");
+        expected.setPassword("password1234");
+        expected.setAge(0);
+        assertThrows(TooYoungUserException.class, () -> service.register(expected));
+    }
+
+    @Test
     void register_userLoginTooShort_notOk() {
         User expected = new User();
         expected.setAge(20);
@@ -46,11 +64,29 @@ class RegistrationServiceImplTest {
     }
 
     @Test
+    void register_emptyUserLogin_notOk() {
+        User expected = new User();
+        expected.setAge(20);
+        expected.setPassword("password1234");
+        expected.setLogin("");
+        assertThrows(UserLoginTooShortException.class, () -> service.register(expected));
+    }
+
+    @Test
     void register_userPasswordTooShort_notOk() {
         User expected = new User();
         expected.setAge(20);
         expected.setLogin("user1234");
         expected.setPassword("pass1");
+        assertThrows(UserPasswordTooShortException.class, () -> service.register(expected));
+    }
+
+    @Test
+    void register_emptyUserPassword_notOk() {
+        User expected = new User();
+        expected.setAge(20);
+        expected.setLogin("user1234");
+        expected.setPassword("");
         assertThrows(UserPasswordTooShortException.class, () -> service.register(expected));
     }
 
