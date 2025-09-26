@@ -14,8 +14,7 @@ class RegistrationServiceImplTest {
 
     @Test
     void register_null_notOK() {
-        User actual = null;
-        assertThrows(IllegalArgumentException.class, () -> service.register(actual));
+        assertThrows(RegistrationException.class, () -> service.register(null));
     }
 
     @Test

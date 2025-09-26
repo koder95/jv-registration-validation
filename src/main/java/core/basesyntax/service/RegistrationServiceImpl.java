@@ -10,7 +10,7 @@ public class RegistrationServiceImpl implements RegistrationService {
     @Override
     public User register(User user) {
         if (user == null) {
-            throw new IllegalArgumentException(new NullPointerException());
+            throw new RegistrationException("User cannot be null");
         }
         if (storageDao.get(user.getLogin()) != null) {
             throw new RegisteredUserException(user);
