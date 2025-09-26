@@ -20,7 +20,7 @@ class RegistrationServiceImplTest {
     @Test
     void register_correct_ok() {
         User expected = new User();
-        expected.setAge(20);
+        expected.setAge(18);
         expected.setLogin("user12");
         expected.setPassword("pass12");
         assertEquals(expected, service.register(expected));
@@ -29,7 +29,7 @@ class RegistrationServiceImplTest {
     @Test
     void register_tooYoungUser_notOk() {
         User expected = new User();
-        expected.setAge(16);
+        expected.setAge(17);
         expected.setLogin("user1234");
         expected.setPassword("password1234");
         assertThrows(TooYoungUserException.class, () -> service.register(expected));
